@@ -1,0 +1,56 @@
+<style>
+    .container {
+        margin-top: 40px;
+        margin-left: 20%;
+        margin-right: 20%;
+    }
+
+    .row {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .button {
+        margin: 5px;
+        float: right;
+    }
+</style>
+
+<div class="container mat-typography">
+    <mat-card>
+        <h1>New Post</h1>
+        <form #postForm="ngForm" (ngSubmit)="onSubmit(postForm.value)">
+            <div class="row">
+                <mat-form-field class="form-control">
+                    <input matInput placeholder="Title" type="text" id="title" name="title" [(ngModel)]="model.title"
+                        required #title="ngModel" autocomplete="off">
+                    <mat-error *ngIf="!title.pristine || !title.valid">
+                        Please enter a valid title
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field>
+                    <input matInput placeholder="Author" type="text" id="author" name="author"
+                        [(ngModel)]="model.author" required #author="ngModel" autocomplete="off">
+                    <mat-error *ngIf="!author.pristine || !author.valid">
+                        Please enter a valid author
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <textarea matInput placeholder="Body" cols="40" rows="15" type="text" id="body" name="body"
+                        [(ngModel)]="model.body" required #body="ngModel" autocomplete="off"></textarea>
+                    <mat-error *ngIf="!body.pristine || !body.valid">
+                        Please enter a valid body
+                    </mat-error>
+                </mat-form-field>
+                <div>
+                    <button mat-raised-button color="primary" class="button" type="submit"
+                        [disabled]="!postForm.form.valid">Post</button>
+                    <a routerLink="">
+                        <button mat-raised-button color="primary" class="button">Back</button>
+                    </a>
+                </div>
+            </div>
+        </form>
+    </mat-card>
+
+</div>

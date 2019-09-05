@@ -1,0 +1,57 @@
+<style>
+    a {
+        color: inherit;
+    }
+
+    .bloglist {
+        flex: auto;
+    }
+
+    .blog {
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+    .add {
+        float: right;
+    }
+
+    .button {
+        float: right;
+    }
+    .pad {
+        padding-bottom: 45px;
+    }
+</style>
+<div>
+    <section class="mat-typography bloglist">
+        <h1>Posts</h1>
+        <div class="pad">
+            <a routerLink="/new"><button mat-raised-button color="primary" class="add">Add post</button></a>
+        </div>
+        <div *ngIf="posts.length > 0">
+            <div *ngFor="let post of posts">
+
+                <mat-card class="blog" [@fadeInOut]>
+                    <a [routerLink]="['post', post.id]">
+                        <mat-card-title>{{post.title}}</mat-card-title>
+                    </a>
+                    <mat-card-subtitle>{{post.date}} by {{post.author}}</mat-card-subtitle>
+                    <mat-card-content>{{post.body}}</mat-card-content>
+                    <mat-card-actions align="end">
+                        <button mat-button color="error" (click)="openDialog(post.id, post.title)">DELETE</button>
+                        <button mat-button color="primary" (click)="editPost(post.id)">EDIT</button>
+                    </mat-card-actions>
+                </mat-card>
+
+            </div>
+            <mat-paginator [length]="this.postService.posts.length" [pageSize]="this.pageSize"
+                (page)="onPageEvent($event)" [pageSizeOptions]="pageSizeOptions">
+
+            </mat-paginator>
+        </div>
+        <div *ngIf="posts.length == 0">
+            <h3>No posts found.</h3>
+        </div>
+    </section>
+</div>

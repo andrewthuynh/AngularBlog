@@ -1,0 +1,24 @@
+<style>
+    .bloglist {
+        flex: auto;
+    }
+
+    .blog {
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+    .button {
+        float: right;
+    }
+</style>
+
+<div class="bloglist">
+    <mat-card class="blog">
+        <mat-card-title>{{post.title}}</mat-card-title>
+        <mat-card-subtitle>{{post.date}} by {{post.author}}</mat-card-subtitle>
+        <mat-card-content>{{post.body}}</mat-card-content>
+    </mat-card>
+
+    <a routerLink=""><button class="button" mat-raised-button color="primary">Back</button></a>
+</div>
