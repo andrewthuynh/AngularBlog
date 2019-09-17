@@ -11,6 +11,9 @@ import { ReactiveFormsModule } from '@angular/forms';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatIconModule} from '@angular/material/icon';
 import {MatPaginatorModule} from '@angular/material/paginator';
+import { HttpClientModule } from '@angular/common/http';
+import { MatSelectModule } from '@angular/material/select';
+import {MatSidenavModule} from '@angular/material/sidenav';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -18,6 +21,8 @@ import { PostListComponent, DeleteDialogModalComponent } from './post-list/post-
 import { ToolbarComponent } from './toolbar/toolbar.component';
 import { PostFormComponent } from './post-form/post-form.component';
 import { PostComponent } from './post/post.component';
+import 'hammerjs';
+import { fromEventPattern } from 'rxjs';
 
 @NgModule({
   declarations: [
@@ -41,7 +46,10 @@ import { PostComponent } from './post/post.component';
     ReactiveFormsModule,
     MatDialogModule,
     MatIconModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    HttpClientModule,
+    MatSelectModule,
+    MatSidenavModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

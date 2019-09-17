@@ -1,5 +1,15 @@
-<h1 mat-dialog-title>Delete post '{{title}}'?</h1>
-<div mat-dialog-actions>
-    <button mat-button mat-dialog-close color="error" (click)="deletePost(id)">DELETE</button>
-    <button mat-button mat-dialog-close color="secondary">CANCEL</button>
-</div>
+<style>
+    .center {
+        text-align: center;
+    }
+</style>
+
+<section class="mat-typography">
+    <mat-icon class="icon2">cancel_outlined</mat-icon>
+    <h1 mat-dialog-title class="center">Delete post '{{title}}'?</h1>
+    <h4 mat-dialog-title class="center">This action cannot be undone.</h4>
+    <div mat-dialog-actions align="center">
+        <button mat-flat-button mat-dialog-close color="primary">CANCEL</button>
+        <button mat-flat-button mat-dialog-close color="warn" (click)="deletePost(id)">DELETE</button>
+    </div>
+</section>

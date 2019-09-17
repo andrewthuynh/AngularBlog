@@ -1,8 +1,7 @@
 <style>
     .container {
-        margin-top: 40px;
-        margin-left: 20%;
-        margin-right: 20%;
+        margin: 40px auto 10px auto;
+        max-width: 800px;
     }
 
     .row {
@@ -13,6 +12,12 @@
     .button {
         margin: 5px;
         float: right;
+    }
+    .icon{
+        margin-left: 6px;
+    }
+    .icon2{
+        margin-right: 6px;
     }
 </style>
 
@@ -37,16 +42,17 @@
                 </mat-form-field>
                 <mat-form-field appearance="fill">
                     <textarea matInput placeholder="Body" cols="40" rows="15" type="text" id="body" name="body"
-                        [(ngModel)]="model.body" required #body="ngModel" autocomplete="off"></textarea>
+                        [(ngModel)]="model.body" required #body="ngModel" autocomplete="off" maxlength="3000" ng-trim="false"></textarea>
+                    <mat-hint>{{3000-model.body.length}} characters remaining</mat-hint>
                     <mat-error *ngIf="!body.pristine || !body.valid">
                         Please enter a valid body
                     </mat-error>
                 </mat-form-field>
                 <div>
                     <button mat-raised-button color="primary" class="button" type="submit"
-                        [disabled]="!postForm.form.valid">Post</button>
+                        [disabled]="!postForm.form.valid">Post <mat-icon class="icon">send</mat-icon></button>
                     <a routerLink="">
-                        <button mat-raised-button color="primary" class="button">Back</button>
+                        <button mat-raised-button color="warn" class="button"><mat-icon class="icon2">keyboard_backspace</mat-icon>Back</button>
                     </a>
                 </div>
             </div>

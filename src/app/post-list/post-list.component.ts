@@ -2,7 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { PostService } from '../post.service';
 import { MatDialog, MAT_DIALOG_DATA, MatDialogRef, MatDialogConfig } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { trigger, state, style, animate, transition} from '@angular/animations';
+import { trigger, state, style, animate, transition } from '@angular/animations';
 import { PageEvent } from '@angular/material/paginator';
 
 @Component({
@@ -32,31 +32,30 @@ export class PostListComponent implements OnInit {
 
   posts;
   subscription;
-  pageNumber: number = 1;
-  pageSize: number = 5;
-  pageSizeOptions: number[] = [5,10,20];
+  order = "option2";
+  sort = "option2";
 
   constructor(
     private postService: PostService,
     public dialog: MatDialog,
     private router: Router
-  ) { 
-    this.subscription = postService.postChange.subscribe((value) => { 
-      this.posts = postService.getPostsPaginated(this.pageSize, this.pageNumber)
+  ) {
+    this.subscription = postService.postChange.subscribe((value) => {
+      this.posts = postService.getPostsPaginated(this.postService.pageSize, this.postService.pageNumber)
     });
   }
 
-  editPost(postId){
+  editPost(postId) {
     this.router.navigate(['edit', postId]);
   }
 
   openDialog(postId, postTitle) {
-    
-    const dialogConfig =  new MatDialogConfig();
+
+    const dialogConfig = new MatDialogConfig();
     dialogConfig.autoFocus = true;
     dialogConfig.disableClose = true;
-    dialogConfig.width = '250px';
-    
+    dialogConfig.width = '400px';
+
     dialogConfig.data = {
       id: postId,
       title: postTitle
@@ -66,17 +65,37 @@ export class PostListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.posts = this.postService.getPostsPaginated(this.pageSize, this.pageNumber);
+    this.postService.sortByDateDesc();
+    this.posts = this.postService.getPostsPaginated(this.postService.pageSize, this.postService.pageNumber);
   }
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
 
-  onPageEvent(event:PageEvent){
-    this.pageNumber = event.pageIndex+1;
-    this.pageSize = event.pageSize;
-    this.posts = this.postService.getPostsPaginated(this.pageSize, this.pageNumber);
+  onPageEvent(event: PageEvent) {
+    this.postService.pageNumber = event.pageIndex + 1;
+    this.postService.pageSize = event.pageSize;
+    this.posts = this.postService.getPostsPaginated(this.postService.pageSize, this.postService.pageNumber);
+  }
+  filterPosts() {
+    if (this.sort == 'option2') {
+      if(this.order == 'option2'){
+        this.postService.sortByDateDesc();
+      }
+      else {
+        this.postService.sortByDateAsc();
+      }
+    }
+    else {
+      if(this.order == 'option2'){
+        this.postService.sortByTitleDesc();
+      }
+      else {
+        this.postService.sortByTitleAsc();
+      }
+    }
+    this.posts = this.postService.getPostsPaginated(this.postService.pageSize, this.postService.pageNumber);
   }
 
 }
@@ -93,7 +112,7 @@ export class DeleteDialogModalComponent {
   constructor(
     @Inject(MAT_DIALOG_DATA) data,
     private postService: PostService,
-  ) { 
+  ) {
     this.id = data.id;
     this.title = data.title;
   }
